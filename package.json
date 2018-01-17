@@ -1,0 +1,19 @@
+{
+  "name": "@alter-eco/select",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "browserify index.js -s Select -o dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:alter-eco/select.git"
+  },
+  "author": "laurencedorman",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^15.1.0"
+  }
+}
