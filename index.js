@@ -9,23 +9,35 @@ module.exports = Select = {
     return instance;
   },
 
-  init: function(options) {
-    this.$select = $(options.elem);
-    this.$select.hide();
-
+  init: function(params) {
     this.events = $({});
-    this.options = [];
+    this.options = params.options || [];
     this.value = '';
 
-    // read values
-    this.$select.children().each(function(index, elem) {
-      this.options.push({
-        value: elem.value,
-        label: elem.innerText
-      });
-    }.bind(this));
+    if (params.elem) {
+      // select tag in DOM
+      this.$select = $(params.elem);
 
-    this.placeholder = this.options.shift().label;
+      // read values from DOM
+      this.$select.children().each(function(index, elem) {
+        this.options.push({
+          value: elem.value,
+          label: elem.innerText
+        });
+      }.bind(this));
+    }
+    else {
+      // select created programmatically
+      this.$select = $('<select name="' + params.name + '"></select>');
+
+      this.options.forEach(function(option) {
+        this.$select.append('<option value="' + option.value + '">' + option.label + '</option>');
+      }.bind(this));
+    }
+
+    this.$select.hide();
+
+    this.placeholder = params.placeholder || this.options.shift().label;
 
     // wrapper
     this.$select.wrap('<div class="c-select"></div>');
@@ -78,6 +90,10 @@ module.exports = Select = {
   },
 
   prototype: {
+    appendTo: function(elem) {
+      this.$wrapper.appendTo(elem);
+    },
+
     on: function(eventName, callback) {
       this.events.on(eventName, callback);
     },
@@ -110,6 +126,11 @@ module.exports = Select = {
     hideDropdown: function() {
       this.isOpen = false;
       this.$dropdown.removeClass('is-visible');
+    },
+
+    destroy: function() {
+      this.$wrapper.remove();
+      this.$wrapper = null;
     }
   }
 };

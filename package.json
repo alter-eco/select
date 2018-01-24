@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prepublish": "npm run build",
-    "build": "browserify index.js -s Select -o dist/main.js"
+    "styles": "node-sass style.scss  dist/main.css",
+    "js": "browserify index.js -s Select -o dist/main.js",
+    "build": "npm run js && npm run styles"
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,7 @@
   "author": "laurencedorman",
   "license": "ISC",
   "devDependencies": {
-    "browserify": "^15.1.0"
+    "browserify": "^15.1.0",
+    "node-sass": "^4.7.2"
   }
 }
