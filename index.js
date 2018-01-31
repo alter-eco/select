@@ -10,13 +10,13 @@ module.exports = Select = {
   },
 
   init: function(params) {
-    this.events = $({});
+    this.events = jQuery({});
     this.options = params.options || [];
     this.value = '';
 
     if (params.elem) {
       // select tag in DOM
-      this.$select = $(params.elem);
+      this.$select = jQuery(params.elem);
 
       // read values from DOM
       this.$select.children().each(function(index, elem) {
@@ -28,7 +28,7 @@ module.exports = Select = {
     }
     else {
       // select created programmatically
-      this.$select = $('<select name="' + params.name + '"></select>');
+      this.$select = jQuery('<select name="' + params.name + '"></select>');
 
       this.options.forEach(function(option) {
         this.$select.append('<option value="' + option.value + '">' + option.label + '</option>');
@@ -44,7 +44,7 @@ module.exports = Select = {
     this.$wrapper = this.$select.closest('.c-select');
 
     // input
-    this.$input = $('<input class="c-select__input" type="text" />');
+    this.$input = jQuery('<input class="c-select__input" type="text" />');
     this.$input.attr('placeholder', this.placeholder);
     this.$wrapper.append(this.$input);
 
@@ -66,7 +66,7 @@ module.exports = Select = {
     }.bind(this));
 
     // dropdown
-    this.$dropdown = $('<ul class="c-select__dropdown"></ul>');
+    this.$dropdown = jQuery('<ul class="c-select__dropdown"></ul>');
     this.options.forEach(function(option) {
       this.$dropdown.append('<li class="c-select__dropdown__item" data-value="' + option.value + '">' + option.label + '</li>');
     }.bind(this));
